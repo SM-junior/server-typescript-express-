@@ -7,11 +7,18 @@ const express_1 = __importDefault(require("express"));
 const app = (0, express_1.default)();
 const port = 3000;
 app.use(express_1.default.json());
-app.get('/', (req, res) => {
+//middleware function
+const middleware = (req, res, next) => {
+    console.log(req.url, req.route);
+    next();
+    //next()-->eta call na korle client side a loading dekhabe, je loading ses hobar na
+};
+//*** app.use(middleware)-->you are telling the Express application to execute middleware function for every incoming request
+app.get('/', middleware, (req, res) => {
     res.send('Hello World! from app.ts');
 });
 //req.query
-app.get('/users', (req, res) => {
+app.get('/users', middleware, (req, res) => {
     //url=http://localhost:3000/users?age=30&sort=asc
     const { age, sort } = req.query;
     console.log(age, sort);
@@ -30,9 +37,33 @@ app.get('/:id', (req, res) => {
     console.log('id:', id);
     res.send(`id: ${id}`);
 });
+//req.body
+//-->client side theke data aseb. sei data 'req.body' ar maddhome server site a access kora lagbe
 app.post('/', (req, res) => {
     const data = req.body;
+    console.log(data);
     res.send(data);
+});
+//................................express.Router()................................
+const userRouter = express_1.default.Router();
+app.use('/api/v1/users', userRouter);
+userRouter.post('/create-user', (req, res) => {
+    const user = req.body;
+    res.json({
+        success: true,
+        message: 'user is created successfully',
+        data: user
+    });
+});
+const courseRouter = express_1.default.Router();
+app.use('/api/v1/courses', courseRouter);
+courseRouter.post('/create-course', (req, res) => {
+    const course = req.body;
+    res.json({
+        success: true,
+        message: 'course is created successfully',
+        data: course
+    });
 });
 exports.default = app;
 //............create server with typescript, express..............
