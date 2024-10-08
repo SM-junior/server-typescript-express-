@@ -91,8 +91,16 @@ app.get('/', middleware, (req, res, next) => {
         res.send(hello);
     }
     catch (error) {
-        next(error); //-->error holei seta global error handler ar moddhe cole jabe, server crash korbe na
+        next(error); //-->global error handler ke call kore dilam. error holei seta global error handler ar moddhe cole jabe, server crash korbe na
     }
+});
+//all route error handler
+//jodi all server a kono router khuje na pay tai le ai error debe
+app.all('*', (req, res) => {
+    res.status(400).json({
+        success: false,
+        message: 'Route is not found'
+    });
 });
 //this is global error handler middleware. It must come after all route definitions and middleware
 app.use((err, req, res, next) => {
