@@ -7,17 +7,17 @@ const express_1 = __importDefault(require("express"));
 const app = (0, express_1.default)();
 const port = 3000;
 app.use(express_1.default.json());
-//middleware function
+//.................middleware function.................
+//A middleware function is a key concept in web frameworks like Express.js 
+//Middleware functions have access to the request (req) and response (res) objects 
+//and can manipulate them or execute code before passing control to the next middleware function or route handler.
 const middleware = (req, res, next) => {
     console.log(req.url, req.route);
     next();
     //next()-->eta call na korle client side a loading dekhabe, je loading ses hobar na
 };
 //*** app.use(middleware)-->you are telling the Express application to execute middleware function for every incoming request
-app.get('/', middleware, (req, res) => {
-    res.send('Hello World! from app.ts');
-});
-//req.query
+//............req.query............
 app.get('/users', middleware, (req, res) => {
     //url=http://localhost:3000/users?age=30&sort=asc
     const { age, sort } = req.query;
@@ -30,14 +30,14 @@ app.get('/name', (req, res) => {
     console.log(name);
     res.send(`name:${name}`);
 });
-//req.params
+//..............req.params..............
 app.get('/:id', (req, res) => {
     // :id-->je nam dibo(ekhane id nam dici) destructure korar somoy sei same name dite hobe 
     const { id } = req.params; // upore ':id' dici tai--> {id}=req.params
     console.log('id:', id);
     res.send(`id: ${id}`);
 });
-//req.body
+//...............req.body...............
 //-->client side theke data aseb. sei data 'req.body' ar maddhome server site a access kora lagbe
 app.post('/', (req, res) => {
     const data = req.body;
@@ -64,6 +64,44 @@ courseRouter.post('/create-course', (req, res) => {
         message: 'course is created successfully',
         data: course
     });
+});
+//...............................error handler..........................
+//1.tryCatch error handler
+//-->eta korle jodi kono error o thake tao server crash korbe na
+//2.global error handler
+//-->In an Express application, the global error handler should be defined after all other middleware and route handlers.
+//-->server ar je kono route a problem hok na keno ta global error handler a giye dhora khabe
+//...tryCatch...
+// app.get('/', (req: Request, res: Response) => {
+//     try {
+//         res.send(hello from app.ts)
+//     } catch (error) {
+//         console.log(error);
+//         res.status(400).json({
+//             success: false,
+//             message: 'Something went wrong',
+//         })
+//     }
+// })
+//...global error handling...
+app.get('/', middleware, (req, res, next) => {
+    //try catch use korle jodi kono error hoy tahole server crash korbe na.
+    try {
+        res.send(hello);
+    }
+    catch (error) {
+        next(error); //-->error holei seta global error handler ar moddhe cole jabe, server crash korbe na
+    }
+});
+//this is global error handler middleware. It must come after all route definitions and middleware
+app.use((err, req, res, next) => {
+    if (err) {
+        res.status(400).json({
+            success: false,
+            message: 'Something went wrong',
+            error: err.message,
+        });
+    }
 });
 exports.default = app;
 //............create server with typescript, express..............
