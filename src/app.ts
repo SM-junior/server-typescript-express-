@@ -85,17 +85,17 @@ courseRouter.post('/create-course', (req: Request, res: Response) => {
 //-->server ar je kono route a problem hok na keno ta global error handler a giye dhora khabe
 
 //...tryCatch...
-// app.get('/', (req: Request, res: Response) => {
-//     try {
-//         res.send(hello from app.ts)
-//     } catch (error) {
-//         console.log(error);
-//         res.status(400).json({
-//             success: false,
-//             message: 'Something went wrong',
-//         })
-//     }
-// })
+app.get('/', (req: Request, res: Response) => {
+    try {
+        res.send(hello from app.ts)
+    } catch (error) {
+        console.log(error);
+        res.status(400).json({
+            success: false,
+            message: 'Something went wrong',
+        })
+    }
+})
 
 //...global error handling...
 app.get('/', middleware, (req: Request, res: Response, next: NextFunction) => {

@@ -72,17 +72,18 @@ courseRouter.post('/create-course', (req, res) => {
 //-->In an Express application, the global error handler should be defined after all other middleware and route handlers.
 //-->server ar je kono route a problem hok na keno ta global error handler a giye dhora khabe
 //...tryCatch...
-// app.get('/', (req: Request, res: Response) => {
-//     try {
-//         res.send(hello from app.ts)
-//     } catch (error) {
-//         console.log(error);
-//         res.status(400).json({
-//             success: false,
-//             message: 'Something went wrong',
-//         })
-//     }
-// })
+app.get('/', (req, res) => {
+    try {
+        res.send(hello, from, app.ts);
+    }
+    catch (error) {
+        console.log(error);
+        res.status(400).json({
+            success: false,
+            message: 'Something went wrong',
+        });
+    }
+});
 //...global error handling...
 app.get('/', middleware, (req, res, next) => {
     //try catch use korle jodi kono error hoy tahole server crash korbe na.
