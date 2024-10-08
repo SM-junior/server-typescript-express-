@@ -1,6 +1,6 @@
-............create server with typescript, express..............
+##............create server with typescript, express..............
 
--->create a folder-->open with vs code
+-create a folder-->open with vs code
 -->install express, typescript(as dependency)
 -->npm init -y (create server)
 -->create src folder and dist folder
