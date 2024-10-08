@@ -101,7 +101,7 @@ courseRouter.post('/create-course', (req: Request, res: Response) => {
 app.get('/', middleware, async (req: Request, res: Response, next: NextFunction) => {
     //try catch use korle jodi kono error hoy tahole server crash korbe na.
     try {
-        res.send(hello)
+        res.send(hello) //ekhane hello string dici tai error dekhacce
     } catch (error) {
         next(error) //-->global error handler ke call kore dilam. error holei seta global error handler ar moddhe cole jabe, server crash korbe na
     }
@@ -135,11 +135,7 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
 
 
 
-
-
 export default app;
-
-
 
 
 

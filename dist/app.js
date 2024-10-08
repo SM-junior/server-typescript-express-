@@ -96,7 +96,7 @@ courseRouter.post('/create-course', (req, res) => {
 app.get('/', middleware, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     //try catch use korle jodi kono error hoy tahole server crash korbe na.
     try {
-        res.send(hello);
+        res.send(hello); //ekhane hello string dici tai error dekhacce
     }
     catch (error) {
         next(error); //-->global error handler ke call kore dilam. error holei seta global error handler ar moddhe cole jabe, server crash korbe na
