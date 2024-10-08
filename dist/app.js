@@ -1,4 +1,13 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -72,20 +81,19 @@ courseRouter.post('/create-course', (req, res) => {
 //-->In an Express application, the global error handler should be defined after all other middleware and route handlers.
 //-->server ar je kono route a problem hok na keno ta global error handler a giye dhora khabe
 //...tryCatch...
-app.get('/', (req, res) => {
-    try {
-        res.send(hello, from, app.ts);
-    }
-    catch (error) {
-        console.log(error);
-        res.status(400).json({
-            success: false,
-            message: 'Something went wrong',
-        });
-    }
-});
+// app.get('/', async (req: Request, res: Response) => {
+//     try {
+//         res.send(hello from app.ts)
+//     } catch (error) {
+//         console.log(error);
+//         res.status(400).json({
+//             success: false,
+//             message: 'Something went wrong',
+//         })
+//     }
+// })
 //...global error handling...
-app.get('/', middleware, (req, res, next) => {
+app.get('/', middleware, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     //try catch use korle jodi kono error hoy tahole server crash korbe na.
     try {
         res.send(hello);
@@ -93,7 +101,7 @@ app.get('/', middleware, (req, res, next) => {
     catch (error) {
         next(error); //-->global error handler ke call kore dilam. error holei seta global error handler ar moddhe cole jabe, server crash korbe na
     }
-});
+}));
 //all route error handler
 //jodi all server a kono router khuje na pay tai le ai error debe
 app.all('*', (req, res) => {
@@ -113,29 +121,28 @@ app.use((err, req, res, next) => {
     }
 });
 exports.default = app;
-//............create server with typescript, express..............
-//-->create a folder-->open with vs code
-//-->install express, typescript(as dependency)
-//-->npm init -y (create server)
-//-->create src folder and dist folder
-//-->create app folder under src folder
-//-->create app.ts & server.ts file under src folder
-//-->npm tsc --init(create tsconfig.json file)
-//-->open tsconfig.json file
-//-->rootDir:"./src/"
-//-->outDir:"./dist"
-//-->save tsconfig.ts file
-//-->
-//..........some commands..........
-//-->tsc (means typescript compiler. convert ts file to js file)
-//-->tsc -w (watch mode. if change anything is ts file it automatically convert into js file)
-// notun vabe tsc deoa lagbe na.
+// ............create server with typescript, express..............
+// -->create a folder-->open with vs code
+// -->install express, typescript(typescript as dependency)
+// -->npm init -y (create server)
+// -->create src folder and dist folder in root directory
+// -->create app folder under src folder
+// -->create app.ts & server.ts file under src folder
+// -->npm tsc --init(create tsconfig.json file)  //tsc-->typescript compiler 
+// -->open tsconfig.json file
+// -->rootDir:"./src/"
+// -->outDir:"./dist"
+// -->save tsconfig.ts file
+// -->
+// ..........some commands..........
+// -->tsc (means typescript compiler. convert .ts file to .js file)
+// -->tsc -w (watch mode. if change anything is .ts file it automatically convert into .js file)
+// 'tsc--w' ai commant dile notun vabe tsc deoa lagbe na.
 // but ai terminal block hoye jabe. server automatically run hobe na
 // toknon notun terminal open kore abar server k run korano lagbe
 // file a kono kicu change korle jate save deoar sathe sathe server automatic run hoye
-//jay se jonno nodemon user korbo. tar jonno
-//-->npm i -D nodemon
-//-->go to package.json file
-//-->"start:dev":"nodemon ./dist/server.js" --> add this on script object and save
-//-->npm run start:dev -->server run hobe
-// ............req.params, req.query..............
+// jay se jonno nodemon user korbo. tar jonno
+// -->npm i -D nodemon
+// -->go to package.json file
+// -->"start:dev":"nodemon ./dist/server.js" --> add this on script object and save
+// -->npm run start:dev -->server run hobe

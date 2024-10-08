@@ -85,20 +85,20 @@ courseRouter.post('/create-course', (req: Request, res: Response) => {
 //-->server ar je kono route a problem hok na keno ta global error handler a giye dhora khabe
 
 //...tryCatch...
-app.get('/', (req: Request, res: Response) => {
-    try {
-        res.send(hello from app.ts)
-    } catch (error) {
-        console.log(error);
-        res.status(400).json({
-            success: false,
-            message: 'Something went wrong',
-        })
-    }
-})
+// app.get('/', async (req: Request, res: Response) => {
+//     try {
+//         res.send(hello from app.ts)
+//     } catch (error) {
+//         console.log(error);
+//         res.status(400).json({
+//             success: false,
+//             message: 'Something went wrong',
+//         })
+//     }
+// })
 
 //...global error handling...
-app.get('/', middleware, (req: Request, res: Response, next: NextFunction) => {
+app.get('/', middleware, async (req: Request, res: Response, next: NextFunction) => {
     //try catch use korle jodi kono error hoy tahole server crash korbe na.
     try {
         res.send(hello)
@@ -137,8 +137,6 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
 
 
 
-
-
 export default app;
 
 
@@ -146,37 +144,33 @@ export default app;
 
 
 
+// ............create server with typescript, express..............
 
+// -->create a folder-->open with vs code
+// -->install express, typescript(typescript as dependency)
+// -->npm init -y (create server)
+// -->create src folder and dist folder in root directory
+// -->create app folder under src folder
+// -->create app.ts & server.ts file under src folder
+// -->npm tsc --init(create tsconfig.json file)  //tsc-->typescript compiler 
+// -->open tsconfig.json file
+// -->rootDir:"./src/"
+// -->outDir:"./dist"
+// -->save tsconfig.ts file
+// -->
 
-//............create server with typescript, express..............
+// ..........some commands..........
+// -->tsc (means typescript compiler. convert .ts file to .js file)
 
-//-->create a folder-->open with vs code
-//-->install express, typescript(as dependency)
-//-->npm init -y (create server)
-//-->create src folder and dist folder
-//-->create app folder under src folder
-//-->create app.ts & server.ts file under src folder
-//-->npm tsc --init(create tsconfig.json file)
-//-->open tsconfig.json file
-//-->rootDir:"./src/"
-//-->outDir:"./dist"
-//-->save tsconfig.ts file
-//-->
-
-//..........some commands..........
-//-->tsc (means typescript compiler. convert ts file to js file)
-
-//-->tsc -w (watch mode. if change anything is ts file it automatically convert into js file)
-// notun vabe tsc deoa lagbe na.
+// -->tsc -w (watch mode. if change anything is .ts file it automatically convert into .js file)
+// 'tsc--w' ai commant dile notun vabe tsc deoa lagbe na.
 // but ai terminal block hoye jabe. server automatically run hobe na
 // toknon notun terminal open kore abar server k run korano lagbe
 
 // file a kono kicu change korle jate save deoar sathe sathe server automatic run hoye
-//jay se jonno nodemon user korbo. tar jonno
-//-->npm i -D nodemon
-//-->go to package.json file
-//-->"start:dev":"nodemon ./dist/server.js" --> add this on script object and save
-//-->npm run start:dev -->server run hobe
+// jay se jonno nodemon user korbo. tar jonno
+// -->npm i -D nodemon
+// -->go to package.json file
+// -->"start:dev":"nodemon ./dist/server.js" --> add this on script object and save
+// -->npm run start:dev -->server run hobe
 
-
-// ............req.params, req.query..............
