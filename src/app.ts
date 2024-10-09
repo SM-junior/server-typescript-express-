@@ -148,7 +148,7 @@ export default app;
 // -->create src folder and dist folder in root directory
 // -->create app folder under src folder
 // -->create app.ts & server.ts file under src folder
-// -->npm tsc --init(create tsconfig.json file)  //tsc-->typescript compiler 
+// -->tsc --init(create tsconfig.json file)  //tsc-->typescript compiler 
 // -->open tsconfig.json file
 // -->rootDir:"./src/"
 // -->outDir:"./dist"
